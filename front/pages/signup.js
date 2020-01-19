@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
-import AppLayout from '../components/AppLayout';
-import Head from 'next/head';
+import React, { useState, useCallback } from 'react';
 import { Form, Input, Checkbox, Button } from 'antd';
 
 const Signup = () => {
-    const [id, setId] = useState('');
-    const [nick, setNick] = useState('');
-    const [password, setPassword] = useState('');
     const [passwordCheck, setPasswordCheck] = useState('');
     const [term, setTerm] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [termError, setTermError] = useState(false);
 
-    const onSubmit = (e) => {
+    const useInput = (initValue = null) => {
+        const [value, setter] = useState(initValue);
+        const handler = useCallback((e) => {
+            setter(e.target.value);
+        }, []);
+        return [value, handler];
+    };
+
+    const [id, onChangeId] = useInput('');
+    const [nick, onChangeNick] = useInput('');
+    const [password, onChangePassword] = useInput('');
+
+    const onSubmit = useCallback((e) => {
         e.preventDefault();
         if (password !== passwordCheck) {
             return setPasswordError(true);
@@ -20,43 +27,22 @@ const Signup = () => {
         if (!term) {
             return setTermError(true);
         }
-        console.log(
-            id,
-            nick,
-            password,
-            passwordCheck,
-            term,
-        );
-    };
+    }, [password, passwordCheck, term]);
 
-    const onChangeId = (e) => {
-        setId(e.target.value);
-    };
-
-    const onChangeNick = (e) => {
-        setNick(e.target.value);
-    };
-
-    const onChangePassword = (e) => {
-        setPassword(e.target.value);
-    };
-
-    const onChangePasswordCheck = (e) => {
+    const onChangePasswordCheck = useCallback((e) => {
         setPasswordError(e.target.value !== password);
         setPasswordCheck(e.target.value);
-    };
+    }, [password]);
 
-    const onChangeTerm = (e) => {
+    const onChangeTerm = useCallback((e) => {
         setTermError(false);
         setTerm(e.target.checked);
-    };
+    }, []);
+
     
-    return <>
-        <Head>
-            <title>NodeBird</title>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.25.3/antd.css" />
-        </Head>
-    <AppLayout>
+    
+    return (
+    <>
         <Form onSubmit={onSubmit} style={{ padding: 10 }}>
             <div>
                 <label htmlFor="user-id">아이디</label>
@@ -83,14 +69,12 @@ const Signup = () => {
                 <Checkbox name="user-term" value={term} onChange={onChangeTerm}>동의합니다.</Checkbox>
                 {termError && <div style={{ color: 'red' }}>약관에 동의하셔야 합니다.</div>}
             </div>
-            <div>
             <div style={{ marginTop: 10 }}>
                 <Button type="primary" htmlType="submit">가입하기</Button>
             </div>
-            </div>
         </Form>
-    </AppLayout>
     </>
+    );
 };
 
 export default Signup;

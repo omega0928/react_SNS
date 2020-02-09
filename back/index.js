@@ -18,9 +18,12 @@ db.sequelize.sync();
 passportConfig();
 
 app.use(morgan('dev'));   // app.use는 미들웨이 임 
+app.use(cors({
+    origin: true,  // 요청주소와 같게 
+    credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(expressSession({
     resave: false,
@@ -30,6 +33,7 @@ app.use(expressSession({
         httpOnly: true,
         secure: false, // https를 쓸때 true
     },
+    name: 'rnbck',   // Cookies 이름 
 }));
 app.use(passport.initialize());
 app.use(passport.session());

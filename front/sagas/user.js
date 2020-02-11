@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import { LOG_IN_FAILURE, LOG_IN_REQUEST, LOG_IN_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_REQUEST, SIGN_UP_SUCCESS,
-    LOG_OUT_SUCCESS, LOG_OUT_REQUEST, LOG_OUT_FAILURE, LOAD_USER_SUCCESS, LOAD_USER_REQUEST, LOAD_USER_FAILURE} from '../reducers/user';
+import { LOG_IN_FAILURE, LOG_IN_REQUEST, LOG_IN_SUCCESS, 
+         SIGN_UP_FAILURE, SIGN_UP_REQUEST, SIGN_UP_SUCCESS,
+         LOG_OUT_SUCCESS, LOG_OUT_REQUEST, LOG_OUT_FAILURE, 
+         LOAD_USER_SUCCESS, LOAD_USER_REQUEST, LOAD_USER_FAILURE} from '../reducers/user';
 
-axios.defaults.baseURL = 'http://localhost:3065/api';
 
 function logInAPI(logInData) {
     // 서버에 요청을 보내는 부분

@@ -5,7 +5,7 @@ const db = require('../models');
 const router = express.Router();
 
 router.get('/', (req, res) => { // api/user/
-    if (!res.user) {
+    if (!req.user) {
         return res.status(401).send('로그인이 필요합니다.');
     }
     const user = Object.assign({}, req.user.toJSON());

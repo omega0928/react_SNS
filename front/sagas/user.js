@@ -82,19 +82,20 @@ function* watchLogOut() {
     yield takeEvery(LOG_OUT_REQUEST, logOut);
 }
 
-function loadUserAPI() {
+function loadUserAPI(userId) {
     // 서버에 요청을 보내는 부분
-    return axios.get('/user/', {
+    return axios.get(userId ? `/user/${userId}` : '/user/', {
         withCredentials: true,
     });
 }
 
-function* loadUser() {
+function* loadUser(action) {
     try {
-        const result = yield call(loadUserAPI);
+        const result = yield call(loadUserAPI, action.data);
         yield put({ // put은 dispatch와 동일
             type: LOAD_USER_SUCCESS,
             data: result.data,
+            me: !action.data,
         });
     } catch (e) { 
         console.error(e);

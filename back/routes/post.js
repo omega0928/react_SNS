@@ -20,10 +20,11 @@ router.post('/', async (req, res, next) => { // POST /api/post
         // const User = await newPost.getUser();
         // newPost.User = User;
         // res.json(newPost);
-        const fullPost = await db.post.findOne({
+        const fullPost = await db.Post.findOne({
             where: { id: newPost.id },
             include: [{
                 model: db.User,
+                attributes: ['id', 'nickname'],
             }],
         });
         res.json(fullPost);

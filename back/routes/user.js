@@ -38,7 +38,7 @@ router.post('/', async (req, res, next) => {  // Post /api/user 회원가입
 });
 router.get('/:id', async (req, res, next) => { // 남의 정보 가져오는 것 ex) /3
     try {
-        await db.User.findOne({
+        const user = await db.User.findOne({
             where: { id: parseInt(req.params.id, 10) },
             include: [{
                 model: db.Post,
@@ -59,7 +59,7 @@ router.get('/:id', async (req, res, next) => { // 남의 정보 가져오는 것
         jsonUser.Posts = jsonUser.Posts ? jsonUser.Posts.length : 0;
         jsonUser.Followings = jsonUser.Followings ? jsonUser.Followings.length : 0;
         jsonUser.Followers = jsonUser.Followers ? jsonUser.Followers.length : 0;
-        req.json(user);
+        res.json(jsonUser);
     } catch (e) {
         console.error(e);
         next(e);

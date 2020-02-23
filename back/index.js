@@ -18,7 +18,8 @@ const app = express();
 db.sequelize.sync();
 passportConfig();
 
-app.use(morgan('dev'));   // app.use는 미들웨이 임 
+app.use(morgan('dev'));   // app.use는 미들웨워 임 
+app.use('/', express.static('uploads'));
 app.use(cors({
     origin: true,  // 요청주소와 같게 
     credentials: true,

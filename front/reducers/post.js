@@ -17,7 +17,7 @@ export const initialState = {
 };
 
 export const LOAD_MAIN_POSTS_REQUEST = 'LOAD_MAIN_POSTS_REQUEST';
-export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS';
+export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS'; 
 export const LOAD_MAIN_POSTS_FAILURE = 'LOAD_MAIN_POSTS_FAILURE';
 
 export const LOAD_HASHTAG_POSTS_REQUEST = 'LOAD_HASHTAG_POSTS_REQUEST';
@@ -100,6 +100,7 @@ const reducer = (state = initialState, action) => {
                 isAddingPost: false,
                 mainPosts: [action.data, ...state.mainPosts],
                 postAdded: true,
+                imagePaths: [],
             };
         }
         case ADD_POST_FAILURE: {

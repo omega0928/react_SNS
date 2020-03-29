@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Slick from 'react-slick';
 import { Icon } from 'antd';
+import Slick from 'react-slick';
+import styled from 'styled-components';
+
+const Overlay = styled.div`
+  position: fixed;
+  zIndex: 5000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
+
 const ImagesZoom = ({ images, onClose }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     return (
-        <div style={{ position: 'fixed', zIndex: 5000, top: 0, left: 0, right: 0, bottom: 0 }}>
+        <Overlay>
           <header style={{ height: 44, background: 'white', position: 'relative', padding: 0, textAlign: 'center'}}>
             <h1 style={{ margin: 0, fontSize: '17px', color: '#333', lineHeight: '44px' }}>상세 이미지</h1>
             <Icon type="close" onClick={onClose} style={{ position: 'absolute', right: 0, top: 0, padding: 15, lineHeight: '14px', cursor: 'pointer' }} />
@@ -36,7 +47,7 @@ const ImagesZoom = ({ images, onClose }) => {
               </div>
             </div>
           </div>
-        </div>
+        </Overlay>
       );
     };
 

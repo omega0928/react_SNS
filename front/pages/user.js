@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { LOAD_USER_POSTS_REQUEST } from '../reducers/post';
 import { LOAD_USER_REQUEST } from '../reducers/user';
-import PostCard from '../components/PostCard';
+import PostCard from '../containers/PostCard';
 import { Avatar, Card } from 'antd';
 
 const User = () => {
@@ -40,7 +39,7 @@ const User = () => {
                     )
                     : null}
                 {mainPosts.map(c => (
-                    <PostCard key={+c.createdAt} post={c} />
+                    <PostCard key={c.id} post={c} />
                 ))}
             </div>
     );

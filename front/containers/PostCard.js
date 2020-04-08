@@ -20,7 +20,7 @@ const CardWrapper = styled.div`
 
 const PostCard = memo(({ post }) => {
     const [commentFormOpened, setCommentFormOpened] = useState(false);
-    const { id } = useSelector(state => state.user.me && state.user.me.id);
+    const id = useSelector(state => state.user.me && state.user.me.id);
     const dispatch = useDispatch();
 
     const liked = id && post.Likers && post.Likers.find(v => v.id === id);
@@ -34,14 +34,6 @@ const PostCard = memo(({ post }) => {
             });
         }
     }, []);
-
-    const postMemory = useRef(post);
-
-    console.log('id', id);
-
-    useEffect(() => {
-        console.log('post useEffect', postMemory.current, id, postMemory.current === id);
-    }, [id]);
 
     const onToggleLike = useCallback(() => {
         if (!id) {

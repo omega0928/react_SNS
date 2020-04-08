@@ -35,8 +35,12 @@ const NodeBird = ({ Component, store, pageProps }) => {
                 name: 'og:description', content: 'NodeBird SNS',
             }, {
                 property: 'og:type', content: 'website',
+            }, {
+                property: 'og:image', content: 'http://localhost:3060/favicon.ico',
             }]}
             link={[{
+                rel: 'shortcut icon', href: '/favicon.ico',
+            }, {
                 rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/antd/3.25.3/antd.css',
             }, {
                 rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css',

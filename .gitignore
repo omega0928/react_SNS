@@ -16,4 +16,4 @@ yarn.lock
 .next/
 .env
 uploads/
-.pem
+react-nodebird.pem

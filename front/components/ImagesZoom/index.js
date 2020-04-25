@@ -25,7 +25,7 @@ const ImagesZoom = ({ images, onClose }) => {
             {images.map((v) => {
               return (
                 <ImgWrapper>
-                  <img src={`http://localhost:3065/${v.src}`} />
+                  <img src={v.src} />
                 </ImgWrapper>
               );
             })}

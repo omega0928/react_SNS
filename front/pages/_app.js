@@ -36,7 +36,7 @@ const NodeBird = ({ Component, store, pageProps }) => {
             }, {
                 property: 'og:type', content: 'website',
             }, {
-                property: 'og:image', content: 'http://localhost:3060/favicon.ico',
+                property: 'og:image', content: 'http://gsnodebird.com/favicon.ico',
             }]}
             link={[{
                 rel: 'shortcut icon', href: '/favicon.ico',

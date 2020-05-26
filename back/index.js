@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const dotenv = require('dotenv');
 const passport = require('passport');
+const hpp = require('hpp');
+const helmet = require('helmet');
 
 const passportConfig = require('./passport');
 const db = require('./models');
@@ -13,17 +15,29 @@ const postAPIRouter = require('./routes/post');
 const postsAPIRouter = require('./routes/posts');
 const hashtagAPIRouter = require('./routes/hashtag');
 
+const prod = process.env.NODE_ENV === 'production';
 dotenv.config();
 const app = express();
 db.sequelize.sync();
 passportConfig();
 
-app.use(morgan('dev'));   // app.use는 미들웨워 임 
+if (prod) {
+    app.use(hpp());
+    app.use(helmet());
+    app.use(morgan('combined'));
+    app.use(cors({
+        origin: 'http://gsnodebird.com',
+        credentials: true,
+    }));
+} else {
+    app.use(morgan('dev'));
+    app.use(cors({
+        origin: true,  // 요청주소와 같게 
+        credentials: true,
+    }));
+};
+
 app.use('/', express.static('uploads'));
-app.use(cors({
-    origin: true,  // 요청주소와 같게 
-    credentials: true,
-}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -34,6 +48,7 @@ app.use(expressSession({
     cookie: {
         httpOnly: true,
         secure: false, // https를 쓸때 true
+        domain: prod && '.gsnodebird.com',
     },
     name: 'rnbck',   // Cookies 이름 
 }));
@@ -50,6 +65,6 @@ app.use('/api/post', postAPIRouter);
 app.use('/api/posts', postsAPIRouter);
 app.use('/api/hashtag', hashtagAPIRouter);
 
-app.listen(process.env.NODE_ENV === 'production' ? process.env.PORT : 3065, () => {
+app.listen(prod ? process.env.PORT : 3065, () => {
     console.log(`server is running on ${process.env.PORT}`);
 });

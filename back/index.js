@@ -26,7 +26,7 @@ if (prod) {
     app.use(helmet());
     app.use(morgan('combined'));
     app.use(cors({
-        origin: 'http://gsnodebird.com',
+        origin: /gsnodebird\.com$/,
         credentials: true,
     }));
 } else {
